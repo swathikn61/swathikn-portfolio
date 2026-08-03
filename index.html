@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <title>Swathi K N | Software Engineer</title>
+    <meta
+      name="description"
+      content="Swathi K N is a Computer Science graduate and full-stack engineer working with Java, Spring Boot, Node.js, Python, AWS and LLM-based AI tooling."
+    />
+    <meta name="author" content="Swathi K N" />
+    <meta name="theme-color" content="#fff2ba" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14100E" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Swathi K N | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Backend & full-stack engineer building REST APIs, microservices and AI-driven applications."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Applied before paint so the page never flashes the wrong theme.
+      // Defaults to light regardless of OS preference; only an explicit
+      // prior toggle (stored below by ThemeToggle) switches this to dark.
+      (function () {
+        try {
+          var dark = localStorage.getItem('theme') === 'dark'
+          document.documentElement.classList.toggle('dark', dark)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
