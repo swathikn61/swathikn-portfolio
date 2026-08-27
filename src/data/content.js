@@ -188,6 +188,12 @@ export const certifications = [
     detail: null,
     certificateUrl: '/certificates/ai-fundamentals-ibm-skillsbuild.pdf',
   },
+{
+  name: 'The Complete Full-Stack Web Development Bootcamp',
+  issuer: 'Udemy',
+  detail: 'Dr. Angela Yu, Developer and Lead Instructor',
+  certificateUrl: '/certificates/The Complete Full-Stack Web Development Bootcamp.pdf',
+},
 ]
 
 export const activities = [
