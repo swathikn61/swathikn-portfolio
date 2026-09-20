@@ -29,7 +29,7 @@
   --color-ink-950: #14100E;
 
   /* =========================
-     Burgundy Accent
+     Burgundy / Cherry Accent
      ========================= */
   --color-accent-50: #FCF4F5;
   --color-accent-100: #F8E3E5;
@@ -44,6 +44,31 @@
 }
 
 @layer base {
+
+  /* =========================
+     🖥️ PIXEL COMPUTER CURSOR
+     ========================= */
+
+  html,
+  body,
+  #root {
+    cursor: url('/pixel-cursor.svg') 12 12, auto;
+  }
+
+  /* Keep pixel cursor on clickable elements */
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: url('/pixel-cursor.svgcc') 12 12, pointer;
+  }
+
+  /* =========================
+     Base HTML
+     ========================= */
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -56,10 +81,18 @@
     @apply dark:bg-ink-950 dark:text-ink-300;
   }
 
+  /* =========================
+     Text Selection
+     ========================= */
+
   ::selection {
     @apply bg-accent-200 text-accent-900;
     @apply dark:bg-accent-500/30 dark:text-accent-100;
   }
+
+  /* =========================
+     Links
+     ========================= */
 
   a {
     @apply text-accent-600 transition-colors duration-200;
@@ -71,6 +104,10 @@
     @apply dark:text-accent-300;
   }
 
+  /* =========================
+     Headings
+     ========================= */
+
   h1,
   h2,
   h3,
@@ -81,14 +118,26 @@
     @apply dark:text-ink-50;
   }
 
+  /* =========================
+     Paragraphs
+     ========================= */
+
   p {
     @apply text-ink-600 leading-relaxed;
     @apply dark:text-ink-400;
   }
 
+  /* =========================
+     Buttons
+     ========================= */
+
   button {
     @apply transition-all duration-200;
   }
+
+  /* =========================
+     Inputs
+     ========================= */
 
   input,
   textarea {
@@ -101,6 +150,10 @@
     @apply border-accent-400 ring-2 ring-accent-100;
     @apply dark:border-accent-400 dark:ring-accent-500/20;
   }
+
+  /* =========================
+     Reduced Motion
+     ========================= */
 
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -117,39 +170,85 @@
   }
 }
 
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+
 @layer components {
 
-  /* Background Grid */
+  /* =========================
+     Background Grid
+     ========================= */
+
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(185, 163, 147, 0.15) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(185, 163, 147, 0.15) 1px, transparent 1px);
+      linear-gradient(
+        to right,
+        rgba(185, 163, 147, 0.15) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(185, 163, 147, 0.15) 1px,
+        transparent 1px
+      );
+
     background-size: 56px 56px;
   }
 
-  /* Pixel dot grid — a "pixelated screen" texture for the hero backdrop. */
+  /* =========================
+     Pixel Dot Grid
+     ========================= */
+
   .bg-pixels {
-    background-image: radial-gradient(rgba(146, 124, 108, 0.35) 1.5px, transparent 1.5px);
+    background-image:
+      radial-gradient(
+        rgba(146, 124, 108, 0.35) 1.5px,
+        transparent 1.5px
+      );
+
     background-size: 18px 18px;
   }
 
   .dark .bg-pixels {
-    background-image: radial-gradient(rgba(214, 199, 184, 0.16) 1.5px, transparent 1.5px);
+    background-image:
+      radial-gradient(
+        rgba(214, 199, 184, 0.16) 1.5px,
+        transparent 1.5px
+      );
+
     background-size: 18px 18px;
   }
 
+  /* =========================
+     Dark Mode Grid
+     ========================= */
+
   .dark .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(214, 199, 184, 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(214, 199, 184, 0.08) 1px, transparent 1px);
+      linear-gradient(
+        to right,
+        rgba(214, 199, 184, 0.08) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(214, 199, 184, 0.08) 1px,
+        transparent 1px
+      );
   }
 
-  /* Blinking caret for the hero name's typewriter effect. */
+  /* =========================
+     Typewriter Caret
+     ========================= */
+
   @keyframes blink-caret {
+
     0%,
     49% {
       opacity: 1;
     }
+
     50%,
     100% {
       opacity: 0;
@@ -162,37 +261,58 @@
     animation: blink-caret 1s step-end infinite;
   }
 
-  /* Glass Card */
+  /* =========================
+     Glass / Content Card
+     ========================= */
+
   .card {
     @apply bg-cream border border-ink-200 rounded-2xl shadow-sm;
     @apply dark:bg-ink-900 dark:border-ink-800;
   }
 
-  /* Primary Button */
+  /* =========================
+     Primary Button
+     ========================= */
+
   .btn-primary {
-    @apply bg-accent-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-accent-700 active:scale-95;
+    @apply bg-accent-600 text-white px-6 py-3 rounded-xl;
+    @apply font-medium hover:bg-accent-700 active:scale-95;
   }
 
-  /* Secondary Button */
+  /* =========================
+     Secondary Button
+     ========================= */
+
   .btn-secondary {
-    @apply bg-transparent border border-ink-300 text-ink-700 px-6 py-3 rounded-xl hover:bg-cream;
-    @apply dark:border-ink-700 dark:text-ink-200 dark:hover:bg-ink-900;
+    @apply bg-transparent border border-ink-300;
+    @apply text-ink-700 px-6 py-3 rounded-xl;
+    @apply hover:bg-cream;
+
+    @apply dark:border-ink-700;
+    @apply dark:text-ink-200;
+    @apply dark:hover:bg-ink-900;
   }
 
-  /* Section */
+  /* =========================
+     Sections
+     ========================= */
+
   .section {
     @apply py-24;
   }
 
-  /* Container */
+  /* =========================
+     Container
+     ========================= */
+
   .container-custom {
     @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 }
 
-/* =========================
-   Scrollbar
-   ========================= */
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -218,4 +338,41 @@
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #53453A;
+}
+
+/* =========================================================
+   🍒 SMALL PIXEL DETAILS
+   ========================================================= */
+
+/* Optional: use this class on tiny decorative elements */
+.pixel-decoration {
+  image-rendering: pixelated;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Optional pixel-style badge */
+.pixel-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+
+  border: 1px solid #D6C7B8;
+  background: #F7F2EB;
+  color: #961E35;
+
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+
+  box-shadow:
+    3px 3px 0 #D6C7B8;
+}
+
+.dark .pixel-badge {
+  background: #241D19;
+  border-color: #53453A;
+  color: #E39DA5;
+
+  box-shadow:
+    3px 3px 0 #3A3029;
 }
