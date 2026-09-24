@@ -10,8 +10,8 @@ export const profile = {
   tagline: 'Backend Engineer • Full-Stack Developer • AI Builder',
   location: 'Bengaluru, India',
   email: 'swathikn6142@gmail.com',
-  resumeUrl: '/Swathi_K_N_Resume_Letter.pdf',
-  resumeFileName: 'Swathi_K_N_Resume_Letter.pdf',
+  resumeUrl: '/Swathi_Resume.pdf',
+  resumeFileName: 'Swathi_Resume.pdf',
   // Kept to one line on purpose — the full version lives in the About section.
   summary:
     'Building scalable applications, intelligent systems, and software that solves real-world problems.',
