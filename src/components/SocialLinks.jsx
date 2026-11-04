@@ -16,7 +16,7 @@ export default function SocialLinks({ size = 18, className = '' }) {
             aria-label={social.label}
             title={social.label}
             {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-            className="text-ink-500 hover:text-accent-800 hover:bg-ink-100 dark:hover:text-accent-400 dark:hover:bg-ink-800 grid h-10 w-10 place-items-center rounded-full transition-colors"
+            className="hover:bg-fg hover:text-bg grid h-11 w-11 place-items-center rounded-full transition-colors"
           >
             <Icon size={size} strokeWidth={1.75} />
           </a>

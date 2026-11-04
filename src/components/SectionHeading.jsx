@@ -1,28 +1,15 @@
 import Reveal from './Reveal'
 
-export default function SectionHeading({ eyebrow, title, description, align = 'left' }) {
-  const centered = align === 'center'
+/** `lead` is set in tall serif capitals, `accent` in the block's italic pop color. */
+export default function SectionHeading({ lead, accent, description, compact = false }) {
+  const size = compact ? 'text-[clamp(3rem,6vw,4.5rem)]' : 'text-[clamp(3.5rem,10vw,7.5rem)]'
 
   return (
-    <Reveal className={`mb-12 sm:mb-14 ${centered ? 'flex flex-col items-center text-center' : ''}`}>
-      {eyebrow && (
-        <div className={`mb-3 flex items-center gap-3 ${centered ? 'justify-center' : ''}`}>
-          <span className="h-px w-8 bg-accent-500" aria-hidden="true" />
-          <span className="font-mono text-xs font-medium tracking-widest text-accent-600 uppercase dark:text-accent-400">
-            {eyebrow}
-          </span>
-        </div>
-      )}
-      <h2 className="text-accent-800 dark:text-accent-400 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-        {title}
+    <Reveal className={compact ? 'mb-9' : 'mb-12 sm:mb-16'}>
+      <h2 className={`display ${size} uppercase text-balance`}>
+        {lead} <em>{accent}</em>
       </h2>
-      {description && (
-        <p
-          className={`text-ink-600 dark:text-ink-400 mt-4 max-w-2xl text-base leading-relaxed text-pretty ${centered ? 'mx-auto' : ''}`}
-        >
-          {description}
-        </p>
-      )}
+      {description && <p className="mt-3 max-w-3xl text-lg text-pretty">{description}</p>}
     </Reveal>
   )
 }

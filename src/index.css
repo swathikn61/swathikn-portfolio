@@ -4,156 +4,79 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-hand: 'Caveat', cursive;
 
-  /* =========================
-     Background Colors
-     ========================= */
-  --color-buttermilk: #EFE8DF;
-  --color-cream: #F7F2EB;
+  --color-butter: #fff8ec;
+  --color-pink: #f5cfe3;
+  --color-forest: #2f4420;
+  --color-marigold: #efb02e;
+  --color-sage: #cdc394;
+  --color-sky: #a9d4fa;
+  --color-wine: #7a1328;
+}
 
-  /* =========================
-     Neutral Warm Palette
-     ========================= */
-  --color-ink-50: #FCFAF8;
-  --color-ink-100: #F5EFE9;
-  --color-ink-200: #E9DED3;
-  --color-ink-300: #D6C7B8;
-  --color-ink-400: #B8A393;
-  --color-ink-500: #927C6C;
-  --color-ink-600: #6E5C4E;
-  --color-ink-700: #53453A;
-  --color-ink-800: #3A3029;
-  --color-ink-900: #241D19;
-  --color-ink-950: #14100E;
-
-  /* =========================
-     Burgundy / Cherry Accent
-     ========================= */
-  --color-accent-50: #FCF4F5;
-  --color-accent-100: #F8E3E5;
-  --color-accent-200: #F0C8CC;
-  --color-accent-300: #E39DA5;
-  --color-accent-400: #CF6776;
-  --color-accent-500: #B63B4F;
-  --color-accent-600: #961E35;
-  --color-accent-700: #7A1328;
-  --color-accent-800: #5E0D1E;
-  --color-accent-900: #430714;
+/* Every color block sets these four; components only ever use the aliases below. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-pop: var(--pop);
+  --color-soft: color-mix(in srgb, var(--fg) 84%, var(--bg));
+  --color-line: color-mix(in srgb, var(--fg) 28%, transparent);
 }
 
 @layer base {
-
-  /* =========================
-     🖥️ PIXEL COMPUTER CURSOR
-     ========================= */
-
   html,
   body,
   #root {
-    cursor: url('/pixel-cursor.svg') 12 12, auto;
+    cursor: url('/dot-cursor.svg') 10 10, auto;
   }
 
-  /* Keep pixel cursor on clickable elements */
   a,
   button,
-  input,
-  textarea,
-  select,
-  [role="button"] {
-    cursor: url('/pixel-cursor.svgcc') 12 12, pointer;
+  [role='button'] {
+    cursor: url('/dot-cursor-hover.svg') 16 16, pointer;
   }
-
-  /* =========================
-     Base HTML
-     ========================= */
 
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-padding-top: 5rem;
     scroll-behavior: smooth;
   }
 
-  body {
-    @apply bg-buttermilk text-ink-700 font-sans antialiased;
-    @apply dark:bg-ink-950 dark:text-ink-300;
+  /* Lenis handles smoothing itself; native smooth scroll would fight it. */
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto;
   }
 
-  /* =========================
-     Text Selection
-     ========================= */
+  body {
+    @apply bg-butter font-sans text-forest;
+    overflow-x: clip;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  .dark body {
+    background: #15120e;
+  }
 
   ::selection {
-    @apply bg-accent-200 text-accent-900;
-    @apply dark:bg-accent-500/30 dark:text-accent-100;
+    @apply bg-wine text-butter;
   }
-
-  /* =========================
-     Links
-     ========================= */
 
   a {
-    @apply text-accent-600 transition-colors duration-200;
-    @apply dark:text-accent-400;
+    color: inherit;
   }
 
-  a:hover {
-    @apply text-accent-700;
-    @apply dark:text-accent-300;
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
-
-  /* =========================
-     Headings
-     ========================= */
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-ink-900 font-semibold;
-    @apply dark:text-ink-50;
-  }
-
-  /* =========================
-     Paragraphs
-     ========================= */
-
-  p {
-    @apply text-ink-600 leading-relaxed;
-    @apply dark:text-ink-400;
-  }
-
-  /* =========================
-     Buttons
-     ========================= */
-
-  button {
-    @apply transition-all duration-200;
-  }
-
-  /* =========================
-     Inputs
-     ========================= */
-
-  input,
-  textarea {
-    @apply bg-cream border border-ink-200 rounded-lg px-4 py-2 outline-none;
-    @apply dark:bg-ink-900 dark:border-ink-700;
-  }
-
-  input:focus,
-  textarea:focus {
-    @apply border-accent-400 ring-2 ring-accent-100;
-    @apply dark:border-accent-400 dark:ring-accent-500/20;
-  }
-
-  /* =========================
-     Reduced Motion
-     ========================= */
 
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -164,155 +87,223 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
 }
 
-/* =========================================================
-   COMPONENTS
-   ========================================================= */
-
 @layer components {
-
   /* =========================
-     Background Grid
+     Color blocks
      ========================= */
 
-  .bg-grid {
-    background-image:
-      linear-gradient(
-        to right,
-        rgba(185, 163, 147, 0.15) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(185, 163, 147, 0.15) 1px,
-        transparent 1px
-      );
+  .tone {
+    background-color: var(--bg);
+    color: var(--fg);
+  }
 
-    background-size: 56px 56px;
+  .tone-butter {
+    --bg: var(--color-butter);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-pink {
+    --bg: var(--color-pink);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-forest {
+    --bg: var(--color-forest);
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .tone-sky {
+    --bg: var(--color-sky);
+    --fg: var(--color-wine);
+    --pop: var(--color-forest);
+  }
+
+  .tone-marigold {
+    --bg: var(--color-marigold);
+    --fg: #24351a;
+    --pop: var(--color-wine);
+  }
+
+  .tone-sage {
+    --bg: var(--color-sage);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-wine {
+    --bg: var(--color-wine);
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  /* Two colors only: cream and black. */
+  .tone-plain {
+    --bg: var(--color-butter);
+    --fg: #111;
+    --pop: var(--color-wine);
+  }
+
+  .dark .tone-plain {
+    --bg: #15120e;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  /* Headings match the hero, while the text under them stays black. */
+  .tone-plain .display {
+    color: var(--color-forest);
+  }
+
+  .dark .tone-plain .display {
+    color: var(--fg);
+  }
+
+  /* Dark mode keeps each block's hue as a deep tint. `.keep` opts a sticker out,
+     so cards and name tags stay vivid against the darker sections. */
+  .dark .tone-butter:not(.keep) {
+    --bg: #15120e;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-pink:not(.keep) {
+    --bg: #2c1524;
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .dark .tone-forest:not(.keep) {
+    --bg: #18240f;
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .dark .tone-sky:not(.keep) {
+    --bg: #11253a;
+    --fg: var(--color-sky);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-marigold:not(.keep) {
+    --bg: #2e2206;
+    --fg: var(--color-marigold);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-sage:not(.keep) {
+    --bg: #27241a;
+    --fg: var(--color-sage);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-wine:not(.keep) {
+    --bg: #3d0813;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
   }
 
   /* =========================
-     Pixel Dot Grid
+     Layout & type
      ========================= */
 
-  .bg-pixels {
-    background-image:
-      radial-gradient(
-        rgba(146, 124, 108, 0.35) 1.5px,
-        transparent 1.5px
-      );
-
-    background-size: 18px 18px;
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-6 lg:px-8;
   }
 
-  .dark .bg-pixels {
-    background-image:
-      radial-gradient(
-        rgba(214, 199, 184, 0.16) 1.5px,
-        transparent 1.5px
-      );
-
-    background-size: 18px 18px;
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
   }
 
-  /* =========================
-     Dark Mode Grid
-     ========================= */
-
-  .dark .bg-grid {
-    background-image:
-      linear-gradient(
-        to right,
-        rgba(214, 199, 184, 0.08) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(214, 199, 184, 0.08) 1px,
-        transparent 1px
-      );
+  .display em {
+    color: var(--pop);
+    text-transform: none;
   }
 
-  /* =========================
-     Typewriter Caret
-     ========================= */
+  .label {
+    @apply font-mono text-xs font-medium tracking-wider uppercase;
+  }
 
-  @keyframes blink-caret {
+  /* Row of pixel blocks that climbs into the section above. */
+  .pixel-edge::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 100%;
+    height: 16px;
+    background: repeating-linear-gradient(90deg, var(--bg) 0 16px, transparent 16px 32px);
+  }
 
-    0%,
-    49% {
-      opacity: 1;
+  /* Corners cut into 8px stairs, so panels read as pixel art. */
+  .pixel-corners {
+    --s: 6px;
+    clip-path: polygon(
+      0 calc(var(--s) * 2),
+      var(--s) calc(var(--s) * 2),
+      var(--s) var(--s),
+      calc(var(--s) * 2) var(--s),
+      calc(var(--s) * 2) 0,
+      calc(100% - var(--s) * 2) 0,
+      calc(100% - var(--s) * 2) var(--s),
+      calc(100% - var(--s)) var(--s),
+      calc(100% - var(--s)) calc(var(--s) * 2),
+      100% calc(var(--s) * 2),
+      100% calc(100% - var(--s) * 2),
+      calc(100% - var(--s)) calc(100% - var(--s) * 2),
+      calc(100% - var(--s)) calc(100% - var(--s)),
+      calc(100% - var(--s) * 2) calc(100% - var(--s)),
+      calc(100% - var(--s) * 2) 100%,
+      calc(var(--s) * 2) 100%,
+      calc(var(--s) * 2) calc(100% - var(--s)),
+      var(--s) calc(100% - var(--s)),
+      var(--s) calc(100% - var(--s) * 2),
+      0 calc(100% - var(--s) * 2)
+    );
+  }
+
+  /* Slow bob in chunky steps, so the sprites move like pixel art. */
+  .float {
+    animation: float 3.2s steps(4) infinite alternate;
+  }
+
+  @keyframes float {
+    to {
+      translate: 0 -10px;
     }
+  }
 
-    50%,
-    100% {
+  .lift {
+    transition: translate 0.2s steps(3);
+  }
+
+  .lift:hover {
+    translate: 0 -6px;
+  }
+
+  /* Hero entrance. `both` holds the start frame through each element's delay. */
+  .rise {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes rise {
+    from {
       opacity: 0;
+      translate: 0 16px;
     }
-  }
-
-  .typewriter-cursor {
-    display: inline-block;
-    margin-left: 0.05em;
-    animation: blink-caret 1s step-end infinite;
-  }
-
-  /* =========================
-     Glass / Content Card
-     ========================= */
-
-  .card {
-    @apply bg-cream border border-ink-200 rounded-2xl shadow-sm;
-    @apply dark:bg-ink-900 dark:border-ink-800;
-  }
-
-  /* =========================
-     Primary Button
-     ========================= */
-
-  .btn-primary {
-    @apply bg-accent-600 text-white px-6 py-3 rounded-xl;
-    @apply font-medium hover:bg-accent-700 active:scale-95;
-  }
-
-  /* =========================
-     Secondary Button
-     ========================= */
-
-  .btn-secondary {
-    @apply bg-transparent border border-ink-300;
-    @apply text-ink-700 px-6 py-3 rounded-xl;
-    @apply hover:bg-cream;
-
-    @apply dark:border-ink-700;
-    @apply dark:text-ink-200;
-    @apply dark:hover:bg-ink-900;
-  }
-
-  /* =========================
-     Sections
-     ========================= */
-
-  .section {
-    @apply py-24;
-  }
-
-  /* =========================
-     Container
-     ========================= */
-
-  .container-custom {
-    @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 }
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -324,55 +315,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D6C7B8;
+  background: var(--color-forest);
   border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #B8A393;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #3A3029;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #53453A;
-}
-
-/* =========================================================
-   🍒 SMALL PIXEL DETAILS
-   ========================================================= */
-
-/* Optional: use this class on tiny decorative elements */
-.pixel-decoration {
-  image-rendering: pixelated;
-  user-select: none;
-  pointer-events: none;
-}
-
-/* Optional pixel-style badge */
-.pixel-badge {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-
-  border: 1px solid #D6C7B8;
-  background: #F7F2EB;
-  color: #961E35;
-
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-
-  box-shadow:
-    3px 3px 0 #D6C7B8;
-}
-
-.dark .pixel-badge {
-  background: #241D19;
-  border-color: #53453A;
-  color: #E39DA5;
-
-  box-shadow:
-    3px 3px 0 #3A3029;
 }

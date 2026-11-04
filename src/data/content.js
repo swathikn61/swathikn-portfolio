@@ -12,10 +12,16 @@ export const profile = {
   email: 'swathikn6142@gmail.com',
   resumeUrl: '/Swathi_Resume.pdf',
   resumeFileName: 'Swathi_Resume.pdf',
-  // Kept to one line on purpose — the full version lives in the About section.
-  summary:
-    'Building scalable applications, intelligent systems, and software that solves real-world problems.',
   availability: 'Open to SDE & AI engineering roles',
+  // Plain strings stay as text; `mark` words get a colored highlight, and `after`
+  // is punctuation that must stay on the same line as them.
+  heroLine: [
+    'Building ',
+    { mark: 'scalable applications', tone: 'marigold', after: ',' },
+    ' ',
+    { mark: 'intelligent systems', tone: 'sky', after: ',' },
+    ' and software that solves real-world problems.',
+  ],
 }
 
 export const socials = [
@@ -52,13 +58,8 @@ export const contact = {
 }
 
 export const navLinks = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'resume', label: 'Resume' },
+  { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -71,13 +72,19 @@ export const about = {
   ],
 }
 
+export const skillsIntro = "Technologies I've used to design, build, and deploy real-world projects."
+
 export const skills = [
   {
     category: 'Languages',
+    sprite: 'code',
+    tone: 'pink',
     items: ['C++', 'Java', 'Python', 'JavaScript', 'TypeScript', 'SQL'],
   },
   {
     category: 'Backend',
+    sprite: 'terminal',
+    tone: 'sky',
     items: [
       'Spring Boot',
       'Node.js',
@@ -91,22 +98,32 @@ export const skills = [
   },
   {
     category: 'Databases & Caching',
+    sprite: 'database',
+    tone: 'marigold',
     items: ['PostgreSQL', 'Redis', 'FAISS', 'SQLite'],
   },
   {
     category: 'Cloud & DevOps',
+    sprite: 'gear',
+    tone: 'marigold',
     items: ['AWS EC2', 'AWS S3', 'AWS Lambda', 'Docker', 'GitHub Actions', 'CI/CD'],
   },
   {
     category: 'AI / ML',
+    sprite: 'robot',
+    tone: 'pink',
     items: ['LangChain', 'LangGraph', 'RAG', 'Ollama', 'Embeddings', 'LLM-as-judge'],
   },
   {
     category: 'Tools & Practices',
+    sprite: 'bug',
+    tone: 'sky',
     items: ['Git', 'Agile / Scrum', 'Unit Testing', 'OpenAPI / Swagger'],
   },
   {
     category: 'Core Concepts',
+    sprite: 'branch',
+    tone: 'sage',
     items: [
       'Data Structures & Algorithms',
       'System Design',
@@ -118,33 +135,56 @@ export const skills = [
   },
 ]
 
+export const projectsIntro =
+  "A collection of projects where I've explored backend engineering, cloud, and AI."
+
 export const projects = [
   {
     title: 'Multi-Model Evaluation Dashboard',
+    // Illustration shown until there is a screenshot; add `image: '/projects/…'` to use one.
+    preview: 'eval',
+    image: '/projects/llm-eval-dashboard-runs.webp',
+    sprite: 'robot',
+    tone: 'pink',
     description:
       'Compares three local LLMs (Llama 3, Mistral and Phi-3) on identical prompts, tracking latency, token usage and response quality. Each response is graded by an LLM-as-judge against a fixed 1 to 5 rubric, with every run stored in SQLite for side-by-side comparison over time.',
     stack: ['FastAPI', 'Ollama', 'Python', 'SQLite'],
     tag: 'AI / Evaluation',
+    repo: 'https://github.com/swathikn61/Multi-Model-Evaluation-Dashboard',
     featured: true,
   },
   {
     title: 'URL Shortener Service',
+    preview: 'shortener',
+    image: '/projects/url-shortener-dashboard.webp',
+    sprite: 'code',
+    tone: 'sky',
     description:
-      'A Bitly-style shortening service using 6-character Base62 codes (~56.8 billion combinations) with collision-safe retries, click analytics and link expiry. Built on a layered Spring Boot architecture with Redis caching and IP rate limiting via Bucket4j.',
-    stack: ['Spring Boot', 'Java', 'PostgreSQL', 'Redis'],
+      'A Bitly-style URL shortener with 6-character Base62 codes (~56.8B combinations), collision-safe retries, link expiry and click analytics. Layered Spring Boot API with JWT auth, private user dashboards, Redis caching and Bucket4j rate limiting.',
+    stack: ['Spring Boot', 'Java', 'PostgreSQL', 'Redis', 'JWT', 'React'],
     tag: 'Backend / System Design',
+    repo: 'https://github.com/swathikn61/url-shortener',
     featured: true,
   },
   {
     title: 'Personal Finance Tracker',
+    preview: 'finance',
+    image: '/projects/finance-tracker-dashboard.webp',
+    sprite: 'database',
+    tone: 'marigold',
     description:
-      'A TypeScript backend for tracking income and expenses across users, entries and daily summaries. Secured with JWT access/refresh token rotation and tiered rate limiting, with Redis-cached filtering and pagination, plus a cron job that recomputes per-user balances every 10 minutes.',
-    stack: ['Node.js', 'Express', 'TypeScript', 'PostgreSQL', 'Redis'],
+      'A full-stack app for tracking income and expenses. The TypeScript and Express API uses JWT access and refresh tokens, per-route rate limiting, and Redis-cached filtering, sorting and pagination, plus a nightly cron job that writes daily summaries. The React dashboard shows live balances, a 12-month cash-flow chart, spending by category, and CSV export.',
+    stack: ['React', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Redis', 'Tailwind'],
     tag: 'Backend',
+    repo: 'https://github.com/swathikn61/personal-finance-tracker',
     featured: true,
   },
   {
     title: 'Next-Gen Waste Management',
+    preview: 'waste',
+    image: '/projects/waste-management.webp',
+    sprite: 'gear',
+    tone: 'sage',
     description:
       'An IoT waste management system using Arduino sensors to monitor bin levels in real time. Sensor data flows through ThingSpeak into a React dashboard with role-based views for admins, drivers and users.',
     stack: ['IoT', 'Arduino', 'React', 'Tailwind CSS', 'Supabase'],

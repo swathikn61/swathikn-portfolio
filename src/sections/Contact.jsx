@@ -1,71 +1,87 @@
-import { ArrowUpRight, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight, Download, ExternalLink, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import Button from '../components/Button'
+import PixelSprite from '../components/PixelSprite'
 import Reveal from '../components/Reveal'
 import Section from '../components/Section'
-import SectionHeading from '../components/SectionHeading'
-import { contact } from '../data/content'
+import { contact, profile } from '../data/content'
 
-const ICONS = { mail: Mail, linkedin: Linkedin, github: Github, location: MapPin }
+const ICONS = { github: Github, linkedin: Linkedin, mail: Mail, location: MapPin }
 
-function ChannelCard({ channel }) {
+function Channel({ channel }) {
   const Icon = ICONS[channel.icon]
-  const isLink = Boolean(channel.href)
-  const Tag = isLink ? 'a' : 'div'
-  const external = isLink && channel.href.startsWith('http')
+  const external = channel.href?.startsWith('http')
+  const body = (
+    <>
+      <span className="flex items-center justify-between">
+        <Icon size={20} strokeWidth={1.75} />
+        {channel.href && <ArrowUpRight size={17} strokeWidth={2} />}
+      </span>
+      <span className="label mt-4 block">{channel.label}</span>
+      <span className="mt-1 block text-[0.9375rem] font-medium break-words">{channel.value}</span>
+    </>
+  )
+  const card = 'block h-full rounded-xl p-4'
 
   return (
-    <Tag
-      {...(isLink ? { href: channel.href } : {})}
-      {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-      className={`group border-ink-200 dark:border-ink-800 dark:bg-ink-900/40 flex items-center gap-4 rounded-xl border bg-cream px-4 py-3.5 transition-all duration-200 ${
-        isLink
-          ? 'hover:border-accent-300 dark:hover:border-accent-500/40 hover:shadow-[0_2px_20px_-8px_rgb(0_0_0/0.15)] dark:hover:shadow-none'
-          : ''
-      }`}
-    >
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-accent-50 text-accent-600 transition-colors group-hover:bg-accent-100 dark:bg-accent-500/10 dark:text-accent-400 dark:group-hover:bg-accent-500/20">
-        <Icon size={17} strokeWidth={1.75} />
-      </span>
-
-      <span className="min-w-0 flex-1">
-        <span className="text-ink-400 dark:text-ink-500 block font-mono text-[0.625rem] tracking-widest uppercase">
-          {channel.label}
-        </span>
-        <span className="text-ink-800 dark:text-ink-200 block truncate text-sm font-medium">
-          {channel.value}
-        </span>
-      </span>
-
-      {isLink && (
-        <ArrowUpRight
-          size={15}
-          strokeWidth={1.75}
-          aria-hidden="true"
-          className="text-ink-300 dark:text-ink-600 shrink-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-500 dark:group-hover:text-accent-400"
-        />
+    <li className="border-fg rounded-xl border">
+      {channel.href ? (
+        <a
+          href={channel.href}
+          className={`${card} hover:bg-fg hover:text-bg transition-colors`}
+          {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+        >
+          {body}
+        </a>
+      ) : (
+        <div className={card}>{body}</div>
       )}
-    </Tag>
+    </li>
   )
 }
 
 export default function Contact() {
-  return (
-    <Section id="contact">
-      <div className="mx-auto flex max-w-xl flex-col items-center">
-        <SectionHeading
-          eyebrow="Contact"
-          title={contact.heading}
-          description={contact.description}
-          align="center"
-        />
+  const words = contact.heading.split(' ')
+  const accent = words.pop()
 
-        <div className="w-full space-y-3">
-          {contact.channels.map((channel, i) => (
-            <Reveal key={channel.label} delay={i * 0.06}>
-              <ChannelCard channel={channel} />
-            </Reveal>
+  return (
+    <Section
+      id="contact"
+      tone="wine"
+      compact
+      // With the footer it exactly fills the screen below the navbar (4.125rem) and the
+      // pixel edge (1rem), whether reached by scrolling or by the Contact link.
+      className="flex min-h-[calc(100svh-11.25rem)] scroll-mt-[5.125rem]! flex-col justify-center overflow-x-clip"
+    >
+      <PixelSprite
+        name="flower"
+        className="absolute top-14 right-[6%] hidden h-14 w-14 rotate-12 sm:block"
+      />
+
+      <Reveal className="text-center">
+        <h2 className="display text-[clamp(3rem,6vw,4.5rem)] uppercase">
+          {words.join(' ')} <em>{accent}</em>
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-lg text-pretty">{contact.description}</p>
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {contact.channels.map((channel) => (
+            <Channel key={channel.label} channel={channel} />
           ))}
-        </div>
-      </div>
+        </ul>
+      </Reveal>
+
+      <Reveal delay={0.15} className="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href={profile.resumeUrl} download>
+          <Download size={16} strokeWidth={2} />
+          Download resume
+        </Button>
+        <Button href={profile.resumeUrl} variant="secondary" target="_blank" rel="noreferrer noopener">
+          <ExternalLink size={16} strokeWidth={2} />
+          Open PDF
+        </Button>
+      </Reveal>
     </Section>
   )
 }
