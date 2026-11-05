@@ -33,7 +33,7 @@ export const socials = [
 export const contact = {
   heading: "Let's connect",
   description:
-    "I'm open to SDE and AI/ML roles, internships and collaboration on interesting projects. Email is the fastest way to reach me.",
+    "I'm open to SDE and AI roles, internships and collaboration on interesting projects. Email is the fastest way to reach me.",
   channels: [
     {
       label: 'Email',
