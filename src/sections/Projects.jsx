@@ -151,9 +151,16 @@ function ProjectCard({ project, index }) {
 
             {(project.repo || project.demo) && (
               <motion.div {...fadeUp(0.4)} className="mt-6 flex flex-wrap gap-3">
-                {project.repo && <Link href={project.repo} label="GitHub" title={project.title} filled />}
-                {project.demo && <Link href={project.demo} label="Live Demo" title={project.title} />}
+                {project.demo && <Link href={project.demo} label="Live Demo" title={project.title} filled />}
+                {project.repo && (
+                  <Link href={project.repo} label="GitHub" title={project.title} filled={!project.demo} />
+                )}
               </motion.div>
+            )}
+            {project.note && (
+              <motion.p {...fadeUp(0.45)} className="mt-3 text-sm opacity-80">
+                {project.note}
+              </motion.p>
             )}
           </div>
 

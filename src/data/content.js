@@ -167,7 +167,7 @@ export const projects = [
     featured: true,
   },
   {
-    title: 'Personal Finance Tracker',
+    title: 'Spend Journal',
     preview: 'finance',
     image: '/projects/finance-tracker-dashboard.webp',
     sprite: 'database',
@@ -176,7 +176,9 @@ export const projects = [
       'A full-stack app for tracking income and expenses. The TypeScript and Express API uses JWT access and refresh tokens, per-route rate limiting, and Redis-cached filtering, sorting and pagination, plus a nightly cron job that writes daily summaries. The React dashboard shows live balances, a 12-month cash-flow chart, spending by category, and CSV export.',
     stack: ['React', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Redis', 'Tailwind'],
     tag: 'Backend',
-    repo: 'https://github.com/swathikn61/personal-finance-tracker',
+    demo: 'https://spend-journal.vercel.app',
+    repo: 'https://github.com/swathikn61/personal-finance-tracker-web',
+    note: 'Create a free account to try it. The first load may take a moment.',
     featured: true,
   },
   {
