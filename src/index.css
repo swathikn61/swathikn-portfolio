@@ -1,0 +1,346 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode (toggled on <html> by ThemeToggle / the inline boot script). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-hand: 'Gochi Hand', 'Caveat', cursive;
+
+  /* Vintage scrapbook: warm paper, moss ink, blush, mustard, sage, mint and raspberry.
+     The old names stay so every section recolors from here. */
+  --color-butter: #f4eee2; /* paper */
+  --color-pink: #f3bfcb; /* blush */
+  --color-forest: #2f3a29; /* moss ink */
+  --color-marigold: #e8b63e; /* mustard */
+  --color-sage: #bccb9b; /* sage */
+  --color-sky: #93cdb7; /* mint */
+  --color-wine: #ad2f5b; /* raspberry */
+}
+
+/* Every color block sets these four; components only ever use the aliases below. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-pop: var(--pop);
+  --color-soft: color-mix(in srgb, var(--fg) 84%, var(--bg));
+  --color-line: color-mix(in srgb, var(--fg) 28%, transparent);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    cursor: url('/dot-cursor.svg') 10 10, auto;
+  }
+
+  a,
+  button,
+  [role='button'] {
+    cursor: url('/dot-cursor-hover.svg') 16 16, pointer;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis handles smoothing itself; native smooth scroll would fight it. */
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-butter font-sans text-forest;
+    overflow-x: clip;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  .dark body {
+    background: #17150f;
+  }
+
+  ::selection {
+    @apply bg-wine text-butter;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* =========================
+     Color blocks
+     ========================= */
+
+  /* Every block is printed on paper: a faint grain multiplied over its color. */
+  .tone {
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .24 0 0 0 0 .15 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--fg);
+  }
+
+  .tone-butter {
+    --bg: var(--color-butter);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-pink {
+    --bg: var(--color-pink);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-forest {
+    --bg: var(--color-forest);
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .tone-sky {
+    --bg: var(--color-sky);
+    --fg: var(--color-wine);
+    --pop: var(--color-forest);
+  }
+
+  .tone-marigold {
+    --bg: var(--color-marigold);
+    --fg: #2b2416;
+    --pop: var(--color-wine);
+  }
+
+  .tone-sage {
+    --bg: var(--color-sage);
+    --fg: var(--color-forest);
+    --pop: var(--color-wine);
+  }
+
+  .tone-wine {
+    --bg: var(--color-wine);
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  /* Paper and ink only. */
+  .tone-plain {
+    --bg: var(--color-butter);
+    --fg: #2a2620;
+    --pop: var(--color-wine);
+  }
+
+  .dark .tone-plain {
+    --bg: #15120e;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  /* Headings match the hero, while the text under them stays black. */
+  .tone-plain .display {
+    color: var(--color-forest);
+  }
+
+  .dark .tone-plain .display {
+    color: var(--fg);
+  }
+
+  /* Dark mode keeps each block's hue as a deep tint. `.keep` opts a sticker out,
+     so cards and name tags stay vivid against the darker sections. */
+  .dark .tone-butter:not(.keep) {
+    --bg: #15120e;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-pink:not(.keep) {
+    --bg: #2c1524;
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .dark .tone-forest:not(.keep) {
+    --bg: #18240f;
+    --fg: var(--color-pink);
+    --pop: var(--color-marigold);
+  }
+
+  .dark .tone-sky:not(.keep) {
+    --bg: #11253a;
+    --fg: var(--color-sky);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-marigold:not(.keep) {
+    --bg: #2e2206;
+    --fg: var(--color-marigold);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-sage:not(.keep) {
+    --bg: #27241a;
+    --fg: var(--color-sage);
+    --pop: var(--color-pink);
+  }
+
+  .dark .tone-wine:not(.keep) {
+    --bg: #3d0813;
+    --fg: var(--color-butter);
+    --pop: var(--color-pink);
+  }
+
+  /* =========================
+     Layout & type
+     ========================= */
+
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-6 lg:px-8;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-optical-sizing: auto;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  /* The accent word switches to a loose, handwritten-feeling italic. */
+  .display em {
+    color: var(--pop);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.03em;
+  }
+
+    .hand {
+    font-family: var(--font-hand);
+    letter-spacing: 0.01em;
+  }
+
+  .label {
+    @apply font-mono text-xs font-medium tracking-wider uppercase;
+  }
+
+  /* Scalloped edge, like the trim on a paper doily, rising into the block above. */
+  .pixel-edge::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(100% - 1px);
+    height: 14px;
+    background: radial-gradient(circle at 14px 14px, var(--bg) 13px, transparent 13.5px) repeat-x;
+    background-size: 28px 14px;
+  }
+
+  /* Cards are paper cut-outs: soft, slightly uneven corners. */
+  .pixel-corners {
+    border-radius: 22px 26px 20px 28px / 24px 20px 28px 22px;
+  }
+
+  /* Polka dots, printed in the block's own ink at low strength. */
+  .dots {
+    background-image: radial-gradient(color-mix(in srgb, var(--fg) 13%, transparent) 22%, transparent 24%);
+    background-size: 22px 22px;
+  }
+
+  /* A strip of washi tape. Position it with utilities; it tilts and lets the color through. */
+  .tape {
+    position: absolute;
+    height: 1.75rem;
+    width: 6.5rem;
+    background: color-mix(in srgb, var(--tape, var(--color-marigold)) 72%, transparent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    /* Torn ends: small zigzags on both short sides. */
+    clip-path: polygon(0 0, 100% 0, 97% 20%, 100% 40%, 97% 60%, 100% 80%, 97% 100%, 0 100%, 3% 80%, 0 60%, 3% 40%, 0 20%);
+    pointer-events: none;
+  }
+
+  /* A die-cut sticker: thick white outline and a soft shadow, for the SVG decorations. */
+  .sticker {
+    filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.08)) drop-shadow(0 6px 8px rgba(60, 40, 20, 0.18));
+  }
+
+  .spin-slow {
+    animation: spin 80s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  /* Slow drift, like paper cut-outs on a breeze. */
+  .float {
+    animation: float 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes float {
+    to {
+      translate: 0 -10px;
+      rotate: 4deg;
+    }
+  }
+
+  .lift {
+    transition: translate 0.25s ease;
+  }
+
+  .lift:hover {
+    translate: 0 -6px;
+  }
+
+  /* Hero entrance. `both` holds the start frame through each element's delay. */
+  .rise {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 16px;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest);
+  border-radius: 9999px;
+}
