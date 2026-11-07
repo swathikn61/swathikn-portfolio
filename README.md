@@ -1,119 +1,43 @@
-# Swathi K N — Portfolio
+Swathi K N · Portfolio
+My personal portfolio, designed like a vintage scrapbook: paper textures, cut-out letters, washi tape and die-cut tech stickers, with smooth scroll animations throughout.
 
-A minimal, responsive personal portfolio built with React, Vite and Tailwind CSS v4.
+I'm a Computer Science graduate and software engineer working across backend, full-stack and AI. This site shows the projects I've built, my experience, and how to reach me.
 
-## Stack
-
-| Purpose   | Choice                                    |
-| --------- | ----------------------------------------- |
-| Framework | React 19 + Vite 7                         |
-| Styling   | Tailwind CSS v4 (`@tailwindcss/vite`)     |
-| Animation | Framer Motion (respects reduced-motion)   |
-| Icons     | lucide-react                              |
-| Fonts     | Inter + JetBrains Mono (Google Fonts)     |
-
-## Getting started
-
-```bash
+Highlights
+Handwritten intro. "booting up my corner of the internet…" writes itself while a strip of washi tape fills as the loading bar. It plays once per visit.
+Cut-out hero. My name is spelled in ransom-note paper scraps that drop in one by one, over a slowly turning starburst, surrounded by floating tech stickers.
+Stacking project cards. Each project is a polaroid taped onto colored paper. On desktop the cards stack over each other as you scroll, and the screenshots tilt in 3D under the cursor.
+Scroll-lit About section. The opening statement lights up word by word as you scroll.
+Tech stack pop-up. The "my tech stack" tag in the hero opens every tool I work with, grouped by area.
+Smooth scrolling with Lenis, kept in sync with GSAP ScrollTrigger.
+Light and dark themes, a responsive layout, and full support for reduced motion.
+Built with
+Purpose	Tools
+Framework	React 19, Vite 7
+Styling	Tailwind CSS v4
+Animation	Framer Motion, GSAP ScrollTrigger
+Scrolling	Lenis
+Icons	lucide-react, hand-drawn SVG stickers
+Fonts	Fraunces, Bricolage Grotesque, Gochi Hand, IBM Plex Mono
+Hosting	Vercel
+Run it locally
 npm install
-```
-
-```bash
 npm run dev
-```
+The site runs at http://localhost:5173. To make a production build:
 
-The dev server runs at `http://localhost:5173`.
-
-Other scripts:
-
-```bash
 npm run build
-```
-
-```bash
-npm run preview
-```
-
-## Project structure
-
-```
+Project structure
 src/
-├── App.jsx                 # Section composition
-├── index.css               # Tailwind import, theme tokens, base styles
-├── data/
-│   └── content.js          # ← All site copy lives here
-├── hooks/
-│   └── useActiveSection.js # Scroll-spy for the navbar
-├── components/             # Reusable, presentational
-│   ├── Badge.jsx
-│   ├── Button.jsx
-│   ├── Card.jsx
-│   ├── Footer.jsx
-│   ├── Navbar.jsx
-│   ├── Reveal.jsx          # Scroll-triggered fade-in wrapper
-│   ├── Section.jsx
-│   ├── SectionHeading.jsx
-│   ├── SocialLinks.jsx
-│   └── ThemeToggle.jsx
-└── sections/               # One file per page section
-    ├── Hero.jsx
-    ├── About.jsx
-    ├── Skills.jsx
-    ├── Projects.jsx
-    ├── Experience.jsx
-    ├── Education.jsx
-    ├── Resume.jsx
-    └── Contact.jsx
-```
+├── App.jsx              # Page layout and the intro hand-off
+├── index.css            # Palette, paper texture, tape, scallops and other shared styles
+├── data/content.js      # All the text: profile, projects, experience, skills, links
+├── hooks/               # Smooth scrolling and the navbar's active-section tracking
+├── components/          # Intro, stickers, cut-out letters, navbar, footer, tech stack…
+└── sections/            # Hero, Projects, About, Contact
+Editing content
+All the copy lives in src/data/content.js, so most updates never touch a component. Add a project by adding an entry to projects with a title, description, stack, screenshot (in public/projects/), and optional GitHub and live demo links.
 
-## Editing content
-
-Almost nothing needs a component change. Open [`src/data/content.js`](src/data/content.js) and edit
-the exported objects — `profile`, `socials`, `navLinks`, `about`, `skills`, `projects`,
-`experience`, `education`, `certifications` and `activities`. Every section maps straight over
-those arrays.
-
-A few common edits:
-
-- **Add a project** — push an object onto `projects` with `title`, `blurb`, `stack`, `points` and `tag`.
-- **Add a job** — push onto `experience`; the timeline renders any number of entries.
-- **Swap the resume PDF** — replace `public/Swathi_K_N_Resume.pdf` and update `profile.resumeUrl`
-  and `profile.resumeFileName`.
-- **Change the accent colour** — the site uses Tailwind's `indigo`. Find-and-replace `indigo` with
-  another Tailwind hue (e.g. `emerald`, `sky`) across `src/`.
-
-## Theming
-
-Light and dark are both supported. The initial theme comes from `localStorage`, falling back to the
-OS preference, and is applied by a small inline script in `index.html` so there is no flash of the
-wrong theme on load. `ThemeToggle` flips the `dark` class on `<html>` and persists the choice.
-
-## Accessibility
-
-- Skip-to-content link, semantic landmarks and labelled icon buttons.
-- Visible focus rings on all interactive elements.
-- All animation collapses to near-instant under `prefers-reduced-motion: reduce`.
-
-## Deploying to Vercel
-
-The repo includes [`vercel.json`](vercel.json), so Vercel needs no manual configuration.
-
-**Option A — dashboard**
-
-1. Push this folder to a GitHub repository.
-2. Go to [vercel.com/new](https://vercel.com/new) and import that repository.
-3. Vercel detects Vite automatically (build `npm run build`, output `dist`). Click **Deploy**.
-
-**Option B — CLI**
-
-```bash
-npx vercel
-```
-
-Then promote it to production:
-
-```bash
-npx vercel --prod
-```
-
-Any push to the default branch redeploys automatically.
+Contact
+Email: swathikn6142@gmail.com
+LinkedIn: linkedin.com/in/swathikn
+GitHub: github.com/swathikn61
